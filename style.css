@@ -1,0 +1,234 @@
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap');
+
+html, body {
+  height: 100%;
+  margin: 0; padding: 0;
+}
+body {
+  font-family: 'Prompt', sans-serif;
+  background-color: #FFF5E6;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cg fill='%23d4a76a' fill-opacity='0.15'%3E%3Ccircle cx='50' cy='50' r='45'/%3E%3C/g%3E%3C/svg%3E");
+  overflow-x: hidden;
+}
+
+/* จัดกึ่งกลางทั้งหน้า */
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 30px;
+}
+
+/* กระถาง */
+.fortune-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.pot {
+  position: relative;
+  width: 200px; height: 280px;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  z-index: 10;
+}
+.pot-lid {
+  position: absolute; top: 0; left: 0;
+  width: 200px; height: 40px;
+  background: linear-gradient(to bottom, #F44336, #D32F2F);
+  border-radius: 100px 100px 0 0;
+  border: 2px solid rgba(255,215,0,0.8);
+  box-shadow: inset 0 10px 20px rgba(255,255,255,0.3), 0 4px 8px rgba(0,0,0,0.3), 0 0 15px rgba(255,215,0,0.2);
+  transform-origin: bottom center;
+  overflow: hidden;
+  z-index: 20;
+}
+.pot-lid::after {
+  content: '';
+  position: absolute; top: -5px; left: 0;
+  width: 100%; height: 20px;
+  background: linear-gradient(to bottom, rgba(255,215,0,0.4), rgba(255,215,0,0));
+  border-radius: 100px 100px 0 0;
+}
+.pot-body {
+  position: absolute; top: 40px; left: 0;
+  width: 200px; height: 240px;
+  background: linear-gradient(to bottom, #E53935, #C62828);
+  border-radius: 0 0 100px 100px;
+  border: 2px solid rgba(255,215,0,0.8);
+  box-shadow: inset 0 -10px 20px rgba(0,0,0,0.3), 0 10px 20px rgba(0,0,0,0.2), 0 0 15px rgba(255,215,0,0.2);
+  transform-style: preserve-3d;
+  overflow: hidden;
+}
+.pot-logo {
+  position: absolute; top: 10px; left: 50%;
+  width: 120px; height: 60px;
+  transform: translateX(-50%);
+  background: url('https://vazsana.com/wp-content/uploads/2025/03/sa1.png') center/contain no-repeat;
+  z-index: 7;
+}
+.pot-decoration-band {
+  position: absolute; top: 80px; left: 0;
+  width: 100%; height: 20px;
+  background: linear-gradient(to bottom, rgba(255,215,0,0.8), rgba(255,160,0,0.8));
+  box-shadow: inset 0 2px 5px rgba(255,255,255,0.5), inset 0 -2px 5px rgba(0,0,0,0.3);
+}
+.pot-inner-shadow {
+  position: absolute; top: 40px; left: 2px;
+  width: 196px; height: 100px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.4), transparent);
+  border-radius: 98px 98px 0 0;
+  pointer-events: none;
+  z-index: 6;
+}
+.pot-bottom {
+  position: absolute; bottom: 10px; left: 10px;
+  width: 180px; height: 30px;
+  background: radial-gradient(ellipse at center, #5D4037 0%, #3E2723 100%);
+  border-radius: 0 0 90px 90px;
+  transform: perspective(100px) rotateX(30deg);
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);
+  z-index: 5;
+}
+.pot-decoration {
+  position: absolute; top: 20px; left: 10px;
+  width: 180px; height: 180px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath fill='%23FFD700' fill-opacity='0.2' d='M50 0c27.614 0 50 22.386 50 50s-22.386 50-50 50S0 77.614 0 50 22.386 0 50 0zm0 5c24.853 0 45 20.147 45 45S74.853 95 50 95 5 74.853 5 50 25.147 5 50 5z'/%3E%3C/svg%3E");
+  opacity: 0.6;
+}
+/* Inner sticks */
+.inner-stick, .fortune-stick {
+  position: absolute;
+  bottom: 10px;
+  width: 6px;
+  border-radius: 3px;
+  border: 1px solid rgba(255,215,0,0.6);
+  box-shadow: inset -1px 0 3px rgba(0,0,0,0.3), inset 1px 0 2px rgba(255,255,255,0.3);
+  transform-origin: bottom center;
+}
+.inner-stick {
+  height: 160px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.6), #F9A825);
+  z-index: 6;
+}
+.inner-stick::after, .fortune-stick::after {
+  content: '';
+  position: absolute;
+  width: 10px; height: 10px;
+  bottom: -1px; left: -3px;
+  background: #D32F2F;
+  transform: rotate(45deg);
+  border: 1px solid rgba(255,255,255,0.6);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+.inner-stick-01 { left: 50px;  transform: rotate(-8deg) translateY(5px);  height:145px; }
+.inner-stick-02 { left: 75px;  transform: rotate(-4deg) translateY(-3px); height:150px; }
+.inner-stick-03 { left:100px;  transform: rotate(0deg)  translateY(0);   height:155px; }
+.inner-stick-04 { left:125px;  transform: rotate(3deg)  translateY(-2px); height:148px; }
+.inner-stick-05 { left:150px;  transform: rotate(7deg)  translateY(4px);   height:142px; }
+
+/* Fortune stick */
+.fortune-stick {
+  left: 100px;
+  height: 180px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.7), #F57F17);
+  z-index: 5;
+  opacity: 0;
+}
+.fortune-stick-number {
+  position: absolute;
+  top: 30px; left: -7px;
+  width: 20px; height: 20px;
+  background: #FFF;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: bold;
+  color: #B71C1C;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  border: 1px solid rgba(255,215,0,0.6);
+}
+
+/* Click area & glow */
+.click-area {
+  position:absolute; top:0; left:0;
+  width:200px; height:280px;
+  cursor:pointer; z-index:30;
+}
+.pot-glow {
+  position:absolute; top:0; left:-10px;
+  width:220px; height:280px;
+  background: radial-gradient(ellipse at center, rgba(255,215,0,0.2) 0%, rgba(255,215,0,0) 70%);
+  border-radius:50%; opacity:0; z-index:4; pointer-events:none;
+}
+
+/* Particles & sparkles */
+.particle, .sparkle {
+  position: absolute;
+  width: 8px; height: 8px;
+  background: radial-gradient(circle, rgba(255,215,0,0.8) 0%, rgba(255,215,0,0) 70%);
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ปุ่ม */
+.button-group { display:flex; gap:16px; }
+.shake-button, .history-button {
+  border:none; padding:12px 24px; border-radius:50px;
+  font-size:18px; font-weight:bold; color:#fff; cursor:pointer;
+  box-shadow:0 4px 8px rgba(0,0,0,0.2); transition:all .3s;
+}
+.shake-button { background:linear-gradient(to bottom,#D32F2F,#B71C1C); }
+.history-button { background:linear-gradient(to bottom,#F9A825,#F57F17); }
+.shake-button:hover, .history-button:hover { transform:translateY(-2px); box-shadow:0 6px 12px rgba(0,0,0,0.3); }
+.shake-button:active, .history-button:active { transform:translateY(1px); box-shadow:0 2px 4px rgba(0,0,0,0.2); }
+
+/* Popup */
+.result-popup, .history-container {
+  position:fixed; top:0; left:0;
+  width:100%; height:100%; background:rgba(0,0,0,0.7);
+  display:flex; align-items:center; justify-content:center;
+  opacity:0; pointer-events:none; transition:opacity .3s;
+  z-index:100;
+}
+.result-content, .history-content {
+  position:relative; background:#FFF5E6; border-radius:20px;
+  padding:30px; box-shadow:0 10px 25px rgba(0,0,0,0.5);
+  transform:scale(.9); transition:transform .3s;
+}
+.result-border {
+  position:absolute; top:0; left:0; right:0; bottom:0;
+  border:8px solid transparent;
+  border-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cpath fill='none' stroke='%23D4AF37' stroke-width='8' d='M10,10 L90,10 L90,90 L10,90 Z'/%3E%3C/svg%3E") 30 stretch;
+  border-radius:12px;
+}
+.result-number { font-size:48px; color:#D32F2F; font-weight:bold; text-align:center; margin-bottom:20px; text-shadow:2px 2px 4px rgba(0,0,0,0.2); }
+.result-text { font-size:18px; color:#333; text-align:center; margin-bottom:20px; line-height:1.6; }
+.close-button {
+  position:absolute; top:15px; right:15px;
+  width:30px; height:30px; background:#D32F2F; border-radius:50%;
+  color:#fff; font-size:16px; font-weight:bold; border:none;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; box-shadow:0 2px 5px rgba(0,0,0,0.2);
+}
+.history-item { display:flex; align-items:center; padding:15px; border-bottom:1px solid #D4AF37; }
+.history-number {
+  width:40px; height:40px; background:#D32F2F; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  color:#fff; font-weight:bold; margin-right:15px;
+}
+
+/* Keyframes */
+@keyframes shake { 0%,100%{transform:translate(0)}10%{transform:translate(-5px,-3px) rotate(-2deg)}20%{transform:translate(5px,2px) rotate(2deg)}30%{transform:translate(-8px,-4px)}40%{transform:translate(8px,3px)}50%{transform:translate(-5px,-2px) rotate(-3deg)}60%{transform:translate(5px,2px) rotate(3deg)}70%{transform:translate(-8px,-1px)}80%{transform:translate(8px,1px)}90%{transform:translate(-5px,-1px)} }
+@keyframes openLid { to{transform:rotateX(-60deg) translateZ(5px)} }
+@keyframes stickEject { 0%{transform:translateY(0) rotate(0);opacity:1}100%{transform:translateY(-200px) rotate(5deg);opacity:1} }
+@keyframes floatParticle { to{transform:translateY(-100px) translateX(var(--x-offset));opacity:0} }
+@keyframes sparkleAnim { 50%{transform:scale(1.2);opacity:1} }
+@keyframes glowPulse { 50%{opacity:1} }
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
+@keyframes shine { to{background-position:200% 200%} }
