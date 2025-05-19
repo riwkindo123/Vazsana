@@ -1,0 +1,181 @@
+/* RESET & BASE */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Poppins', sans-serif;
+  background: radial-gradient(ellipse at center, #0a0f2c 0%, #1b1b3f 100%);
+  color: #fff;
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+  text-align: center;
+}
+
+/* BACKGROUND STARS & SUBTLE GLOW */
+.stars-bg {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: -2;
+  background-image: radial-gradient(white 1px, transparent 1px);
+  background-size: 3px 3px;
+  opacity: 0.1;
+  animation: subtleGlow 8s ease-in-out infinite alternate;
+background:
+    /* ดาว (overlay) */
+    radial-gradient(white 1px, transparent 1px) 0 0 / 3px 3px no-repeat,
+    /* ภาพพื้นหลังใหม่ของคุณ */
+url('https://res.cloudinary.com/dwar6os4j/image/upload/v1747678484/3278348_mlekjo.jpg') center/cover no-repeat;
+  opacity: 0.1;
+  animation: subtleGlow 8s ease-in-out infinite alternate;
+}
+@keyframes subtleGlow {
+  0% { opacity: 0.07; filter: blur(0px); }
+  100% { opacity: 0.12; filter: blur(1px); }
+}
+
+/* SHOOTING STAR */
+.shooting-star {
+  position: fixed;
+  width: 2px; height: 2px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 0 5px 2px white;
+  opacity: 0.8;
+  z-index: -1;
+  animation: shootingStar linear forwards;
+}
+@keyframes shootingStar {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  50% { opacity: 1; }
+  100% {
+    transform: translate(200px, 200px) scale(0.2);
+    opacity: 0;
+  }
+}
+
+/* TYPOGRAPHY */
+h1, h2, h3 {
+  font-family: 'Cinzel', serif;
+  margin: .5em 0;
+}
+.title {
+  color: #ffd700;
+  font-size: 2rem;
+}
+.subtitle {
+  color: #ccc;
+  margin-bottom: 2rem;
+}
+
+/* LAYOUT */
+.container {
+  padding: 2rem 1rem;
+  max-width: 800px;
+  margin: auto;
+  position: relative;
+  z-index: 1;
+}
+.card-container {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+/* CARD STYLES & FLIP */
+.card {
+  width: 30vw;
+  max-width: 120px;
+  height: 48vw;
+  max-height: 192px;
+  perspective: 800px;
+  cursor: pointer;
+  position: relative;
+}
+.card-inner {
+  width: 100%; height: 100%;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+  position: relative;
+}
+.card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+.card-front, .card-back {
+  position: absolute;
+  width: 100%; height: 100%;
+  border-radius: 10px;
+  backface-visibility: hidden;
+  box-shadow: 0 0 10px rgba(255,255,255,0.1);
+}
+.card-front {
+  background: linear-gradient(135deg, #4b2d85, #6e44ff);
+  border: 2px solid #ffd700;
+  display: flex; align-items: center; justify-content: center;
+}
+.card-front::after {
+  content: "แตะเพื่อเปิดคำทำนายของคุณ";
+  font-size: 0.6rem;
+  color: rgba(255,255,255,0.7);
+  text-align: center;
+  padding: 0.5rem;
+}
+.card-back {
+  background: #000;
+  transform: rotateY(180deg);
+  display: flex; align-items: center; justify-content: center;
+}
+.card-back img {
+  width: 80%;
+  border-radius: 6px;
+  box-shadow: 0 0 10px gold;
+}
+
+/* RESULT BOX */
+.result {
+  background: rgba(75, 45, 133, 0.8);
+  border: 2px solid #9d8549;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 0 30px rgba(255,215,0,0.2);
+  max-width: 350px;
+  margin: auto;
+  transition: all 0.3s ease;
+}
+.result.hidden {
+  display: none;
+}
+.result-img {
+  width: 150px;
+  margin: 1rem auto;
+  display: block;
+  box-shadow: 0 0 10px gold;
+}
+.highlight {
+  color: #ffd700;
+  font-weight: bold;
+  margin: .5rem 0;
+}
+button {
+  background: linear-gradient(135deg, #9d8549, #6f42c1);
+  padding: 0.6rem 1.5rem;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-weight: bold;
+  margin-top: 1rem;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(255,215,0,0.3);
+  transition: transform .3s;
+}
+button:hover {
+  transform: scale(1.05);
+}
